@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build event hub source
-        run: mvn -B package --file pom.xml
+        run: mvn -B package
 
       - name: Publish event hub source
         run: mvn deploy
