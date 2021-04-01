@@ -15,8 +15,9 @@
 
   <repositories>
     <repository>
-      <id>bintray</id>
-      <url>https://jcenter.bintray.com/</url>
+      <id>github</id>
+      <name>GitHub AnGerhard repo</name>
+      <url>https://maven.pkg.github.com/angerhard/maven-repository</url>
     </repository>
   </repositories>
 
@@ -24,12 +25,12 @@
     <repository>
       <id>github</id>
       <name>GitHub AnGerhard repo</name>
-      <url>https://maven.pkg.github.com/angerhard/yaml-exec-vault</url>
+      <url>https://maven.pkg.github.com/angerhard/maven-repository</url>
     </repository>
     <snapshotRepository>
       <id>github</id>
       <name>GitHub AnGerhard repo</name>
-      <url>https://maven.pkg.github.com/angerhard/yaml-exec-vault</url>
+      <url>https://maven.pkg.github.com/angerhard/maven-repository</url>
     </snapshotRepository>
   </distributionManagement>
 
