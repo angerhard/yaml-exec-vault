@@ -2,7 +2,7 @@ package de.andreasgerhard.vault.module.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.andreasgerhard.vault.module.Tag;
+import de.andreasgerhard.interpreter.Tag;
 import de.andreasgerhard.vault.http.Put;
 import de.andreasgerhard.vault.policy.Permission;
 import java.util.Arrays;

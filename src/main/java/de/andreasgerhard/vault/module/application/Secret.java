@@ -1,9 +1,10 @@
 package de.andreasgerhard.vault.module.application;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.andreasgerhard.vault.exception.VaultCallException;
-import de.andreasgerhard.vault.module.Tag;
+import de.andreasgerhard.interpreter.Tag;
 import de.andreasgerhard.vault.http.Get;
 import de.andreasgerhard.vault.http.Put;
 import lombok.Getter;
@@ -40,13 +41,20 @@ public class Secret {
     try {
       JsonNode jsonNode = new Get(application.getVault().getHost(), applicationPath)
           .token(application.getVault().getVaultToken()).runResultJson();
-      if (!jsonNode.get(key).isNull()) {
-        ObjectNode result = ((ObjectNode) jsonNode.get("data")).put(key, value);
-        new Put(application.getVault().getHost(), applicationPath)
-            .token(application.getVault().getVaultToken())
-            .payload(result.toString())
-            .run();
+
+      if (!jsonNode.get("data").isNull()) {
+        ObjectNode secrets = ((ObjectNode) jsonNode.get("data"));
+        if (secrets.get(key) == null) {
+          secrets.put(key, value);
+        }
+      } else {
+        ((ObjectNode) jsonNode).putObject("data").put(key, value);
+
       }
+      new Put(application.getVault().getHost(), applicationPath)
+          .token(application.getVault().getVaultToken())
+          .payload(jsonNode.get("data").toString())
+          .run();
     } catch (VaultCallException e) {
       if (e.getHttpCode() == 404) {
         new Put(application.getVault().getHost(), applicationPath)

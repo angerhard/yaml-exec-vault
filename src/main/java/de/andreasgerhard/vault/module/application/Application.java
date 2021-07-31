@@ -1,6 +1,6 @@
 package de.andreasgerhard.vault.module.application;
 
-import de.andreasgerhard.vault.module.Tag;
+import de.andreasgerhard.interpreter.Tag;
 import de.andreasgerhard.vault.module.Vault;
 import de.andreasgerhard.vault.policy.Password;
 import java.util.HashSet;

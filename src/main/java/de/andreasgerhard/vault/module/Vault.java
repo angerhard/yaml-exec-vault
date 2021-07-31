@@ -1,5 +1,6 @@
 package de.andreasgerhard.vault.module;
 
+import de.andreasgerhard.interpreter.Tag;
 import de.andreasgerhard.interpreter.YamlCommanderRoot;
 import de.andreasgerhard.vault.exception.VaultException;
 import de.andreasgerhard.vault.module.application.Application;
@@ -28,6 +29,18 @@ public class Vault {
 
   public Vault init(@Tag("shares") int shares, @Tag("threshold") int threshold) {
     init = new Init(this.host, 5, 2);
+    vaultToken = init.getRootToken();
+    return this;
+  }
+
+  public Vault init(@Tag("rootToken") String rootToken) {
+    init = new Init(this.host, rootToken);
+    vaultToken = init.getRootToken();
+    return this;
+  }
+
+  public Vault init() {
+    init = new Init(this.host);
     vaultToken = init.getRootToken();
     return this;
   }
