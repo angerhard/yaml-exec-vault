@@ -25,6 +25,9 @@ public class Put extends Http {
         return this;
     }
 
+    public String getPayload() {
+        return payload;
+    }
 
     @SneakyThrows
     public JsonNode run() {

@@ -57,7 +57,9 @@ public abstract class Http {
   protected JsonNode executeAndReturnJsonResult(HttpURLConnection httpCon) throws IOException {
     log.fine("HTTP Request: " + httpCon.getURL());
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    printOutCurl(httpCon);
+
+      ObjectMapper objectMapper = new ObjectMapper();
     TypeFactory typeFactory = TypeFactory.defaultInstance();
     try {
       return objectMapper.readTree(httpCon.getInputStream());
@@ -96,6 +98,23 @@ public abstract class Http {
     }
   }
 
+
+  public void printOutCurl(HttpURLConnection httpCon) {
+    if (this instanceof Put) {
+      String payload = ((Put) this).getPayload();
+      System.out.println("curl \\\n");
+      System.out.println("\t--header \"X-Vault-Token: $VAULT_TOKEN\" \\\n");
+      System.out.println("\t--request PUT \\\n");
+      System.out.println("\t--data '"+payload+"' \\\n");
+      System.out.println("\t" + httpCon.getURL().toString());
+    }
+    if (this instanceof Get) {
+      System.out.println("curl \\\n");
+      System.out.println("\t--header \"X-Vault-Token: $VAULT_TOKEN\" \\\n");
+      System.out.println("\t--request GET \\\n");
+      System.out.println("\t" + httpCon.getURL().toString());
+    }
+  }
 
 }
 
